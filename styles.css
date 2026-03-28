@@ -30,6 +30,11 @@ body {
   transition: background 0.8s ease;
 }
 
+body.surprise-page,
+body.message-page {
+  overflow-y: auto;
+}
+
 body.bright {
   background: radial-gradient(circle at 20% 15%, #fff8fc 0, transparent 34%),
               radial-gradient(circle at 85% 18%, #f8e9f5 0, transparent 34%),
@@ -249,7 +254,7 @@ body.dim {
   margin: 0 auto;
   position: relative;
   min-height: 58vh;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .banner {
@@ -409,7 +414,9 @@ body.dim {
 
 .media-frame {
   width: 100%;
-  height: min(36vh, 270px);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  max-height: 72vh;
   overflow: hidden;
   border-radius: 14px;
   background: #15081a;
@@ -545,11 +552,6 @@ body.dim {
 }
 
 @media (max-width: 760px) {
-  body.surprise-page,
-  body.message-page {
-    overflow-y: auto;
-  }
-
   .party-top {
     flex-direction: column;
     gap: 0.5rem;
@@ -575,7 +577,7 @@ body.dim {
   }
 
   .media-frame {
-    height: 27vh;
+    max-height: 64vh;
   }
 
   .cake {
