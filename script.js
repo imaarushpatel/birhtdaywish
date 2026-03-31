@@ -1,14 +1,7 @@
 const config = {
-  girlfriendName: "Khushi",
-  photos: [
-    "assets/photos/WhatsApp Image 2026-03-28 at 9.23.28 PM.jpeg",
-    "assets/photos/WhatsApp Image 2026-03-28 at 9.23.33 PM.jpeg",
-    "assets/photos/WhatsApp Image 2026-03-28 at 9.23.34 PM.jpeg",
-    "assets/photos/WhatsApp Image 2026-03-28 at 9.23.35 PM.jpeg"
-  ],
-  videos: [
-    "assets/videos/WhatsApp Video 2026-03-28 at 9.24.43 PM.mp4"
-  ]
+  girlfriendName: "Her",
+  photos: [],
+  videos: []
 };
 
 const startPetals = () => {
@@ -102,42 +95,12 @@ const initSurprisePage = () => {
   const banner = document.getElementById("banner");
   const balloonZone = document.getElementById("balloon-zone");
   const cakeCard = document.getElementById("cake-card");
-  const mediaCard = document.getElementById("media-card");
-  const mediaFrame = document.getElementById("media-frame");
-  const prevBtn = document.getElementById("media-prev");
-  const nextBtn = document.getElementById("media-next");
 
   if (!actionBtn || !stepTitle || !stepHint) return;
 
   let audioCtx;
   let musicTimer;
   let musicTimeout;
-  let mediaIndex = 0;
-
-  const mediaItems = [
-    ...config.photos.map((src) => ({ type: "image", src })),
-    ...config.videos.map((src) => ({ type: "video", src }))
-  ];
-
-  const renderMedia = () => {
-    if (!mediaFrame || !mediaItems.length) return;
-    mediaFrame.innerHTML = "";
-    const item = mediaItems[mediaIndex];
-
-    if (item.type === "image") {
-      const img = document.createElement("img");
-      img.src = item.src;
-      img.alt = `${config.girlfriendName} memory ${mediaIndex + 1}`;
-      mediaFrame.appendChild(img);
-    } else {
-      const video = document.createElement("video");
-      video.src = item.src;
-      video.controls = true;
-      video.playsInline = true;
-      video.preload = "metadata";
-      mediaFrame.appendChild(video);
-    }
-  };
 
   const playPianoTone = (freq, duration = 0.42) => {
     if (!audioCtx) return;
@@ -266,15 +229,6 @@ const initSurprisePage = () => {
       }
     },
     {
-      button: "Show Memories",
-      title: "Your photos and videos are ready",
-      hint: "Use Prev/Next buttons to view all memories.",
-      run: () => {
-        mediaCard.classList.add("show");
-        renderMedia();
-      }
-    },
-    {
       button: "Open Final Message",
       title: "Moving to final page",
       hint: "Opening separate message page.",
@@ -295,7 +249,7 @@ const initSurprisePage = () => {
 
     if (stepIndex >= steps.length) {
       actionBtn.textContent = "Restart";
-      stepTitle.textContent = "All set. Happy Birthday, Khushi";
+      stepTitle.textContent = "All set. Happy Birthday, Her";
       stepHint.textContent = "Tap restart to play the sequence again.";
       return;
     }
@@ -333,21 +287,6 @@ const initSurprisePage = () => {
     if (flame) flame.classList.add("off");
   });
 
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      if (!mediaItems.length) return;
-      mediaIndex = (mediaIndex - 1 + mediaItems.length) % mediaItems.length;
-      renderMedia();
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      if (!mediaItems.length) return;
-      mediaIndex = (mediaIndex + 1) % mediaItems.length;
-      renderMedia();
-    });
-  }
 };
 
 const initMessagePage = () => {
